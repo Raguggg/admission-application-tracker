@@ -1,12 +1,13 @@
 import pytest
 
 from app import AppSetup
+from .config import test_config
 
 
 @pytest.fixture
 def app():
     app = AppSetup.app
-    app.config["TESTING"] = True
+    app.config.from_object(test_config)
     yield app
 
 
