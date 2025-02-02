@@ -13,9 +13,6 @@ The application utilizes Flask for the backend, Flask-Login for authentication, 
 
 Follow these steps to install and run the application locally:
 
-
-Follow these steps to set up the project locally:
-
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/Raguggg/admission-application-tracker.git
@@ -156,3 +153,15 @@ To run tests (if applicable), follow these steps:
 - **Data Validation:** User input is validated using Pydantic models to ensure data consistency (e.g., age verification, phone number format).
 - **Application Status Workflow:** The application follows a status flow from `INCOMPLETE` → `PENDING` → `APPROVED`/`REJECTED`, with specific actions (such as document uploads and admission letter generation) triggering status changes.
 - **Error Handling:** The application includes basic error handling, returning appropriate HTTP status codes and error messages for invalid operations (e.g., duplicate registrations, invalid document uploads).
+
+
+### CI/CD Pipeline
+
+We have a GitHub Actions workflow set up for continuous integration and deployment (CI/CD). This workflow automatically runs `pytest` in a cloud environment on every push to the repository.  
+
+#### Workflow Overview:
+- **Trigger:** The workflow runs on every push and pull request to the main or feature branches.  
+- **Tests:** It executes `pytest` to ensure all unit tests pass before merging changes.   
+
+This setup helps maintain code quality and ensures that new changes do not break existing functionality.
+
