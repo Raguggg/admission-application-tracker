@@ -2,6 +2,7 @@ from flask import Flask
 from flask_login import LoginManager
 from flask_migrate import Migrate
 
+from .application.views import *
 from .authentication.urls import register_auth_blueprint
 from .authentication.views import *  # pyright: ignore
 from .config import dev_config

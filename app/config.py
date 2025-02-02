@@ -1,4 +1,13 @@
 from dataclasses import dataclass
+from pathlib import Path
+
+
+class FileConfig:
+    BASE_DIR = Path(__file__).parent.parent
+    UPLOAD_FILE = BASE_DIR / "UPLOADS"
+    ADMISSION_LETTER = BASE_DIR / "ADMISSION_LETTER"
+    UPLOAD_FILE.mkdir(parents=True, exist_ok=True)
+    ADMISSION_LETTER.mkdir(parents=True, exist_ok=True)
 
 
 @dataclass
