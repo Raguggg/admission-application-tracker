@@ -1,18 +1,44 @@
 from flask import Flask
+from flask_login import LoginManager
+from flask_migrate import Migrate
 
-from app.config import dev_config
+from .authentication.urls import register_auth_blueprint
+from .authentication.views import *  # pyright: ignore
+from .config import dev_config
+from .extensions import api, db
 
 
-class AppSetup:
+def create_app(config=None):
+    """Application factory function."""
     app = Flask(__name__)
+    config = config or dev_config
+    app.config.from_object(config)
 
+    # Initialize extensions
+    db.init_app(app)
+    api.init_app(app)
+    Migrate(app, db)
+    login_manager = LoginManager(app)
 
-def create_app():
-    AppSetup.app.config.from_object(dev_config)
+    @login_manager.user_loader
+    def load_user(user_id):
+        from .authentication.models import User
 
-    return AppSetup.app
+        return db.session.get(User, int(user_id))
 
+    with app.app_context():
+        if config:
+            db.create_all()
+        from .extensions import create_admin
 
-@AppSetup.app.route("/")
-def home():
-    return "<h1>Hello Flask</h1>"
+        create_admin()
+
+    # Register blueprints (authentication routes, etc.)
+    register_auth_blueprint(app, api)
+
+    # A simple home route
+    @app.route("/hello")
+    def hello():
+        return "<h1>Hello Flask</h1>"
+
+    return app
