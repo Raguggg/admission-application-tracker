@@ -162,3 +162,9 @@ We have a GitHub Actions workflow set up for continuous integration and deployme
 
 This setup helps maintain code quality and ensures that new changes do not break existing functionality.
 
+## 👨‍💻 Developer
+
+**📝 Name:** RAGU G  
+**📧 Email:** [ragu19062002@gmail.com](mailto:ragu19062002@gmail.com)  
+**📞 Phone:** [+91 7598226670](tel:+917598226670)  
+
